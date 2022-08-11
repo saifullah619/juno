@@ -89,6 +89,13 @@ func (db *Database) createPartitionIfNotExists(table string, partitionID int64) 
 
 // -------------------------------------------------------------------------------------------------------------------
 
+// GetTotalBlocks implements database.Database
+func (db *Database) GetTotalBlocks() (int64, error) {
+	var blockCount int64
+	err := db.Sql.QueryRow(`SELECT count(*) FROM block;`).Scan(&blockCount)
+	return blockCount, err
+}
+
 // HasBlock implements database.Database
 func (db *Database) HasBlock(height int64) (bool, error) {
 	var res bool

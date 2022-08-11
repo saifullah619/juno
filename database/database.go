@@ -12,6 +12,10 @@ import (
 
 // Database represents an abstract database that can be used to save data inside it
 type Database interface {
+	// GetTotalBlocks returns the total number of blocks stored in database.
+	// An error is returned if the operation fails.
+	GetTotalBlocks() (int64, error)
+
 	// HasBlock tells whether or not the database has already stored the block having the given height.
 	// An error is returned if the operation fails.
 	HasBlock(height int64) (bool, error)
