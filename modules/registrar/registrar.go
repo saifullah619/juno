@@ -6,6 +6,7 @@ import (
 
 	"github.com/forbole/juno/v3/node"
 
+	"github.com/forbole/juno/v3/modules/block"
 	"github.com/forbole/juno/v3/modules/telemetry"
 
 	"github.com/forbole/juno/v3/logging"
@@ -86,6 +87,7 @@ func NewDefaultRegistrar(parser messages.MessageAddressesParser) *DefaultRegistr
 // BuildModules implements Registrar
 func (r *DefaultRegistrar) BuildModules(ctx Context) modules.Modules {
 	return modules.Modules{
+		block.NewModule(ctx.Proxy, ctx.Database, ctx.Logger),
 		pruning.NewModule(ctx.JunoConfig, ctx.Database, ctx.Logger),
 		messages.NewModule(r.parser, ctx.EncodingConfig.Marshaler, ctx.Database),
 		telemetry.NewModule(ctx.JunoConfig),
